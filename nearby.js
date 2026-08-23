@@ -181,9 +181,15 @@ out body;
   let attempt = 0;
 
   function tryFetch() {
-    const url = `${endpoints[attempt]}?data=${encodeURIComponent(query)}`;
+    const url = endpoints[attempt];
     
-    fetch(url)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `data=${encodeURIComponent(query)}`
+    })
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
