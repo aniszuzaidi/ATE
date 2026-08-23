@@ -170,18 +170,41 @@ function fetchNearbyRestaurants(lat, lng, radius) {
 out body;
   `.trim();
 
-  const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+  // Rotating mirror endpoints for redundancy (especially helpful in Asia/Malaysia)
+  const endpoints = [
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://overpass.nchc.org.tw/api/interpreter',
+    'https://lz4.overpass-api.de/api/interpreter'
+  ];
 
-  fetch(url)
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.json();
-    })
-    .then(data => renderNearbyResults(data.elements || [], lat, lng))
-    .catch(err => {
-      console.error('Overpass API error:', err);
-      setStatus('⚠️ Could not load map data. The free map service may be busy — please try again shortly.');
-    });
+  let attempt = 0;
+
+  function tryFetch() {
+    const url = `${endpoints[attempt]}?data=${encodeURIComponent(query)}`;
+    
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        renderNearbyResults(data.elements || [], lat, lng);
+      })
+      .catch(err => {
+        console.warn(`Overpass attempt ${attempt + 1} (${endpoints[attempt]}) failed:`, err);
+        attempt++;
+        if (attempt < endpoints.length) {
+          setStatus(`📡 Connection busy, retrying using mirror server ${attempt + 1}...`);
+          tryFetch();
+        } else {
+          console.error('All Overpass servers failed.');
+          setStatus('⚠️ Could not load map data. The free map service may be busy — please try again shortly.');
+        }
+      });
+  }
+
+  tryFetch();
 }
 
 /* ============================================================
