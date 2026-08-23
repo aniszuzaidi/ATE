@@ -264,7 +264,6 @@ function renderFoodCard(food, showActions = true) {
         <div class="food-card-meta">
           <span>${getSpicyLabel(food.spicyLevel)}</span>
           <span>${getMealSizeLabel(food.mealSize)}</span>
-          <span>📍 ${food.distance} km</span>
         </div>
       </div>
       ${actionButtons}
@@ -463,7 +462,6 @@ function showResult(food) {
     ${getTasteTagsHTML(food)}
     ${spicyTag}
     <span class="tag ${sizeClass}">${getMealSizeLabel(food.mealSize)}</span>
-    <span class="tag dist">📍 ${food.distance} km · ${food.location}</span>
   `;
 
   // Taste bars
