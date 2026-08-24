@@ -1948,3 +1948,227 @@ img { max-width: 100%; display: block; }
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
 }
+
+/* ============================================================
+   PREFERENCE WHEEL
+   ============================================================ */
+
+.wheel-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.wheel-hint {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-bottom: .75rem;
+  letter-spacing: .03em;
+}
+
+/* Two-column layout: wheel + panel side by side */
+.wheel-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  min-height: 420px;
+}
+
+/* Wheel container */
+.wheel-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pref-wheel-wrap {
+  width: 340px;
+  height: 340px;
+  max-width: 90vw;
+}
+.pref-wheel-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 6px 24px rgba(0,0,0,.10));
+}
+
+/* Each pie slice group */
+.wheel-slice-g {
+  cursor: pointer;
+  outline: none;
+}
+.wheel-slice {
+  transition: filter .22s ease, transform .22s cubic-bezier(.34,1.56,.64,1);
+  transform-origin: 200px 200px;
+  transform-box: fill-box;
+}
+
+/* Hover & focus */
+.wheel-slice-g:hover .wheel-slice,
+.wheel-slice-g:focus .wheel-slice {
+  filter: brightness(1.08) drop-shadow(0 0 14px rgba(255,107,43,.3));
+  transform: scale(1.04);
+}
+
+/* Active (selected) slice */
+.wheel-slice-g.active-slice .wheel-slice {
+  filter: brightness(1.12) drop-shadow(0 0 18px rgba(255,107,43,.45));
+  transform: scale(1.055);
+  stroke: var(--accent) !important;
+  stroke-width: 5;
+}
+
+/* Text elements on wheel */
+.wheel-emoji {
+  font-size: 1.55rem;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+  transition: font-size .2s;
+}
+.wheel-slice-g:hover .wheel-emoji { font-size: 1.85rem; }
+.wheel-slice-g.active-slice .wheel-emoji { font-size: 1.9rem; }
+
+.wheel-label-txt {
+  font-family: var(--font);
+  font-size: .72rem;
+  font-weight: 700;
+  fill: #5a4a3a;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: .03em;
+  transition: font-size .2s, fill .2s;
+}
+.wheel-slice-g:hover .wheel-label-txt,
+.wheel-slice-g.active-slice .wheel-label-txt {
+  font-size: .82rem;
+  fill: #2d2d2d;
+}
+
+.wheel-badge-txt {
+  font-family: var(--font);
+  font-size: .62rem;
+  font-weight: 600;
+  fill: var(--accent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Center hub */
+.wheel-hub { transition: r .2s; }
+.hub-ate {
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 800;
+  fill: var(--accent);
+  dominant-baseline: middle;
+  user-select: none;
+}
+.hub-sub {
+  font-family: var(--font);
+  font-size: .62rem;
+  fill: var(--muted);
+  dominant-baseline: middle;
+  user-select: none;
+}
+
+/* Options panel (right side) */
+.wheel-panel-area {
+  min-height: 240px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.panel-default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 240px;
+}
+.panel-default-msg {
+  color: var(--muted);
+  font-size: .95rem;
+  text-align: center;
+  line-height: 1.8;
+  opacity: .7;
+}
+
+.options-panel {
+  width: 100%;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  animation: panelSlideIn .22s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes panelSlideIn {
+  from { opacity: 0; transform: translateX(-10px) scale(.97); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: .3rem;
+}
+.panel-hint { font-size: .78rem; color: var(--muted); margin-bottom: .9rem; display: block; }
+
+/* Colour accent per panel */
+.craving-color { color: #e07a40; }
+.spice-color   { color: #d94040; }
+.hunger-color  { color: #2a9d60; }
+.budget-color  { color: #c49a00; }
+
+/* Action row */
+.wheel-action-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── Slot overlay: show wheel blurred behind popup ── */
+.slot-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 0, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.slot-wheel-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.slot-wheel-bg svg {
+  width: min(340px, 80vw);
+  height: min(340px, 80vw);
+  opacity: .35;
+  filter: blur(4px) brightness(.75);
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 600px) {
+  .wheel-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 1.25rem;
+    min-height: unset;
+  }
+  .pref-wheel-wrap { width: 300px; height: 300px; }
+  .wheel-panel-area { width: 100%; }
+  .wheel-action-row { flex-direction: column; }
+  .pick-btn { width: 100%; text-align: center; }
+}
