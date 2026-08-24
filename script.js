@@ -513,7 +513,7 @@ function setupResultButtons() {
 
   document.getElementById('changePreferences')?.addEventListener('click', () => {
     hideResult();
-    document.querySelector('.preferences-wrapper')?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.wheel-main')?.scrollIntoView({ behavior: 'smooth' });
   });
 }
 
@@ -552,6 +552,7 @@ function resetFilters() {
 
   hideResult();
   hideNoMatch();
+  if (typeof updateWheelBadges === 'function') updateWheelBadges();
   showToast('🔄 Filters reset', '');
 }
 
@@ -563,6 +564,7 @@ function relaxFilters() {
   setGroupActive('budgetGroup',   'any');
 
   hideNoMatch();
+  if (typeof updateWheelBadges === 'function') updateWheelBadges();
   showToast('🔄 Filters relaxed', '');
 }
 
