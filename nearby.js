@@ -16,6 +16,7 @@
 /* ============================================================
    STATE
    ============================================================ */
+const isNetlify     = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.protocol !== 'file:';
 let leafletMap      = null;
 let nearbyFoodLabel = '';    // Food name from result card
 let nearbyFoodId    = null;  // Food ID (for data lookup)
@@ -170,8 +171,16 @@ function fetchNearbyRestaurants(lat, lng, radius) {
 out body;
   `.trim();
 
-  // Rotating mirror endpoints for redundancy (especially helpful in Asia/Malaysia)
-  const endpoints = [
+  // Rotating mirror endpoints for redundancy (helpful in Asia/Malaysia)
+  // On Netlify, we prepend our backend proxy to bypass browser CORS / 406 blocks entirely!
+  const endpoints = isNetlify ? [
+    '/api/overpass/interpreter',
+    '/api/overpass-kumi/interpreter',
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter',
+    'https://overpass.nchc.org.tw/api/interpreter',
+    'https://lz4.overpass-api.de/api/interpreter'
+  ] : [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.kumi.systems/api/interpreter',
     'https://overpass.nchc.org.tw/api/interpreter',
@@ -296,7 +305,9 @@ function renderNearbyResults(rawPlaces, userLat, userLng) {
 
   // Build OSRM table matrix request (user coordinates at index 0)
   const coords = [`${userLng},${userLat}`, ...rawCandidates.map(p => `${p.lon},${p.lat}`)].join(';');
-  const osrmUrl = `https://router.project-osrm.org/table/v1/driving/${coords}?sources=0&annotations=distance`;
+  const osrmUrl = isNetlify
+    ? `/api/osrm/table/v1/driving/${coords}?sources=0&annotations=distance`
+    : `https://router.project-osrm.org/table/v1/driving/${coords}?sources=0&annotations=distance`;
 
   fetch(osrmUrl)
     .then(res => {
