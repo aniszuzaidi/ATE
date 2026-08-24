@@ -120,28 +120,60 @@ window.startManualSearch = function() {
 
 function fetchNearbyRestaurants(lat, lng, radius) {
   radius = radius || getSelectedRadius();
-  var amenityFilter = AMENITY_TYPES.map(function(a) { return 'node["amenity"="' + a + '"](around:' + radius + ',' + lat + ',' + lng + ');'; }).join('\n  ');
+  var amenityFilter = AMENITY_TYPES.map(function(a) {
+    return 'node["amenity"="' + a + '"](around:' + radius + ',' + lat + ',' + lng + ');';
+  }).join('\n  ');
   var query = '[out:json][timeout:25];\n(\n  ' + amenityFilter + '\n);\nout body;';
 
-  var isLocal = ['localhost','127.0.0.1',''].indexOf(window.location.hostname) >= 0 || window.location.protocol === 'file:';
-  var SERVERS = [
+  var isLocal = ['localhost','127.0.0.1',''].indexOf(window.location.hostname) >= 0
+             || window.location.protocol === 'file:';
+
+  // Build Overpass GET URLs (query embedded as ?data= parameter).
+  // GET requests work with any CORS proxy — no POST needed.
+  var overpassServers = [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.kumi.systems/api/interpreter',
     'https://lz4.overpass-api.de/api/interpreter'
   ];
-  var PROXY = 'https://corsproxy.io/?url=';
-  var endpoints = isLocal ? SERVERS : SERVERS.map(function(s) { return PROXY + encodeURIComponent(s); });
+
+  var endpoints;
+  if (isLocal) {
+    // On localhost: hit Overpass directly (no CORS issue)
+    endpoints = overpassServers.map(function(s) {
+      return { url: s + '?data=' + encodeURIComponent(query), method: 'GET' };
+    });
+  } else {
+    // On live sites: route through free CORS proxies.
+    // allorigins.win is very reliable for GET requests.
+    var allorigins = 'https://api.allorigins.win/raw?url=';
+    var corsproxy  = 'https://corsproxy.io/?url=';
+    endpoints = [
+      // Primary: allorigins.win (most reliable for GET)
+      { url: allorigins + encodeURIComponent(overpassServers[0] + '?data=' + encodeURIComponent(query)), method: 'GET' },
+      { url: allorigins + encodeURIComponent(overpassServers[1] + '?data=' + encodeURIComponent(query)), method: 'GET' },
+      // Backup: corsproxy.io
+      { url: corsproxy + encodeURIComponent(overpassServers[0] + '?data=' + encodeURIComponent(query)), method: 'GET' },
+      // Last resort: direct (may work if browser allows it)
+      { url: overpassServers[0] + '?data=' + encodeURIComponent(query), method: 'GET' }
+    ];
+  }
+
   var attempt = 0;
 
   function tryFetch() {
-    fetch(endpoints[attempt], { method: 'POST', body: query })
+    var ep = endpoints[attempt];
+    fetch(ep.url, { method: ep.method })
       .then(function(res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
       .then(function(data) { renderNearbyResults(data.elements || [], lat, lng); })
       .catch(function(err) {
         console.warn('Attempt ' + (attempt+1) + ' failed:', err);
         attempt++;
-        if (attempt < endpoints.length) { setStatus('Retrying with server ' + (attempt+1) + '...'); tryFetch(); }
-        else setStatus('Could not load map data. Please try again shortly.');
+        if (attempt < endpoints.length) {
+          setStatus('Retrying with server ' + (attempt+1) + '...');
+          tryFetch();
+        } else {
+          setStatus('Could not load map data. Please try again shortly.');
+        }
       });
   }
   tryFetch();
