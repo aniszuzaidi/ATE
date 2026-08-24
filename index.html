@@ -47,57 +47,60 @@
   <main class="wheel-main" id="wheelMain">
     <div class="wheel-layout">
 
-      <!-- Centered SVG Wheel -->
+      <!-- Centered Wheel Wrap -->
       <div class="wheel-area">
         <div class="pref-wheel-wrap" id="prefWheelWrap">
-          <svg class="pref-wheel-svg" id="prefWheelSvg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Preference wheel">
+          
+          <!-- SVG Only draws the background color path arcs -->
+          <svg class="pref-wheel-svg" id="prefWheelSvg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <path class="wheel-slice" id="slice-craving"
+              d="M200,200 L200,12 A188,188 0 0,1 388,200 Z"
+              fill="#FFF2E6" stroke="white" stroke-width="4"/>
 
-            <!-- ── SLICE 1: CRAVING (top-right, 0-90deg) ── -->
-            <g class="wheel-slice-g" data-section="craving" tabindex="0" role="button" aria-label="Craving preference">
-              <path class="wheel-slice" id="slice-craving"
-                d="M200,200 L200,12 A188,188 0 0,1 388,200 Z"
-                fill="#FFF2E6" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="300" y="105" text-anchor="middle">&#127860;</text>
-              <text class="wheel-label-txt" x="300" y="127" text-anchor="middle">Craving</text>
-              <text class="wheel-badge-txt" id="badge-craving" x="300" y="147" text-anchor="middle"></text>
-            </g>
+            <path class="wheel-slice" id="slice-spice"
+              d="M200,200 L388,200 A188,188 0 0,1 200,388 Z"
+              fill="#FFEBEB" stroke="white" stroke-width="4"/>
 
-            <!-- ── SLICE 2: SPICE (bottom-right, 90-180deg) ── -->
-            <g class="wheel-slice-g" data-section="spice" tabindex="0" role="button" aria-label="Spice preference">
-              <path class="wheel-slice" id="slice-spice"
-                d="M200,200 L388,200 A188,188 0 0,1 200,388 Z"
-                fill="#FFEBEB" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="300" y="285" text-anchor="middle">&#127798;&#65039;</text>
-              <text class="wheel-label-txt" x="300" y="307" text-anchor="middle">Spice</text>
-              <text class="wheel-badge-txt" id="badge-spice" x="300" y="327" text-anchor="middle"></text>
-            </g>
+            <path class="wheel-slice" id="slice-hunger"
+              d="M200,200 L200,388 A188,188 0 0,1 12,200 Z"
+              fill="#EBF8F2" stroke="white" stroke-width="4"/>
 
-            <!-- ── SLICE 3: HUNGER (bottom-left, 180-270deg) ── -->
-            <g class="wheel-slice-g" data-section="hunger" tabindex="0" role="button" aria-label="Hunger preference">
-              <path class="wheel-slice" id="slice-hunger"
-                d="M200,200 L200,388 A188,188 0 0,1 12,200 Z"
-                fill="#EBF8F2" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="100" y="285" text-anchor="middle">&#127869;&#65039;</text>
-              <text class="wheel-label-txt" x="100" y="307" text-anchor="middle">Hunger</text>
-              <text class="wheel-badge-txt" id="badge-hunger" x="100" y="327" text-anchor="middle"></text>
-            </g>
-
-            <!-- ── SLICE 4: BUDGET (top-left, 270-360deg) ── -->
-            <g class="wheel-slice-g" data-section="budget" tabindex="0" role="button" aria-label="Budget preference">
-              <path class="wheel-slice" id="slice-budget"
-                d="M200,200 L12,200 A188,188 0 0,1 200,12 Z"
-                fill="#FFFDEB" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="100" y="105" text-anchor="middle">&#128176;</text>
-              <text class="wheel-label-txt" x="100" y="127" text-anchor="middle">Budget</text>
-              <text class="wheel-badge-txt" id="badge-budget" x="100" y="147" text-anchor="middle"></text>
-            </g>
-
-            <!-- Cute center hub -->
-            <circle cx="200" cy="200" r="76" fill="white" stroke="#eeebe6" stroke-width="3" class="wheel-hub"/>
-            <text x="200" y="193" text-anchor="middle" class="hub-ate">ATE</text>
-            <text x="200" y="214" text-anchor="middle" class="hub-sub" id="hubSub">&#127860; Craving</text>
-
+            <path class="wheel-slice" id="slice-budget"
+              d="M200,200 L12,200 A188,188 0 0,1 200,12 Z"
+              fill="#FFFDEB" stroke="white" stroke-width="4"/>
           </svg>
+
+          <!-- Absolute positioned HTML overlays for pixel-perfect centering of emojis & texts -->
+          <div class="wheel-html-slice craving" data-section="craving" tabindex="0" role="button" aria-label="Craving preference">
+            <span class="wheel-emoji">&#127860;</span>
+            <span class="wheel-label-txt">Craving</span>
+            <span class="wheel-badge-txt" id="badge-craving">Any</span>
+          </div>
+
+          <div class="wheel-html-slice spice" data-section="spice" tabindex="0" role="button" aria-label="Spice preference">
+            <span class="wheel-emoji">&#127798;&#65039;</span>
+            <span class="wheel-label-txt">Spice</span>
+            <span class="wheel-badge-txt" id="badge-spice">Any</span>
+          </div>
+
+          <div class="wheel-html-slice hunger" data-section="hunger" tabindex="0" role="button" aria-label="Hunger preference">
+            <span class="wheel-emoji">&#127869;&#65039;</span>
+            <span class="wheel-label-txt">Hunger</span>
+            <span class="wheel-badge-txt" id="badge-hunger">Normal</span>
+          </div>
+
+          <div class="wheel-html-slice budget" data-section="budget" tabindex="0" role="button" aria-label="Budget preference">
+            <span class="wheel-emoji">&#128176;</span>
+            <span class="wheel-label-txt">Budget</span>
+            <span class="wheel-badge-txt" id="badge-budget">Any</span>
+          </div>
+
+          <!-- Absolute positioned center hub -->
+          <div class="wheel-center-hub">
+            <div class="hub-ate">ATE</div>
+            <div class="hub-sub" id="hubSub">&#127860; Craving</div>
+          </div>
+
         </div>
       </div>
 
