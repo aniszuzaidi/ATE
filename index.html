@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ATE — What Should I Eat?</title>
+  <title>ATE &mdash; What Should I Eat?</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -27,10 +27,10 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="nav-link active">🍽️ Decide</a></li>
-      <li><a href="foods.html" class="nav-link">🍜 My Foods</a></li>
-      <li><a href="favorites.html" class="nav-link">❤️ Favorites</a></li>
-      <li><a href="memories.html" class="nav-link">📸 Memories</a></li>
+      <li><a href="index.html" class="nav-link active">&#127869;&#65039; Decide</a></li>
+      <li><a href="foods.html" class="nav-link">&#127836; My Foods</a></li>
+      <li><a href="favorites.html" class="nav-link">&#10084;&#65039; Favorites</a></li>
+      <li><a href="memories.html" class="nav-link">&#128248; Memories</a></li>
     </ul>
   </nav>
 
@@ -38,80 +38,145 @@
   <section class="hero">
     <div class="hero-content">
       <h1 class="hero-title">What Should I Eat?</h1>
-      <p class="hero-subtitle">Can't decide? Tell us what you're craving and we'll pick for you.</p>
-      <p class="hero-tagline">No more "you choose." We choose. 😌</p>
+      <p class="hero-subtitle">Can&apos;t decide? Tell us what you&apos;re craving and we&apos;ll pick for you.</p>
+      <p class="hero-tagline">No more &ldquo;you choose.&rdquo; We choose. &#128524;</p>
     </div>
   </section>
 
-  <!-- PREFERENCES SECTION -->
-  <main class="preferences-wrapper">
-    <div class="preferences-container">
+  <!-- PREFERENCE WHEEL SECTION -->
+  <main class="wheel-main" id="wheelMain">
+    <div class="wheel-layout">
 
-      <!-- TASTE -->
-      <section class="pref-section" id="section-taste">
-        <h2 class="pref-title">🍴 What are you craving?</h2>
-        <p class="pref-hint">Select one or more. Selecting none = Any taste.</p>
-        <div class="taste-grid">
-          <button class="taste-btn" data-taste="sweet">🍬 Sweet</button>
-          <button class="taste-btn" data-taste="salty">🧂 Salty</button>
-          <button class="taste-btn" data-taste="sour">🍋 Sour</button>
-          <button class="taste-btn" data-taste="bitter">🌿 Bitter</button>
-          <button class="taste-btn" data-taste="spicy">🌶️ Spicy</button>
-          <button class="taste-btn" data-taste="savory">😋 Savory</button>
+      <!-- LEFT: The Wheel -->
+      <div class="wheel-area">
+        <div class="wheel-hint">Tap a slice to set your preference</div>
+        <div class="pref-wheel-wrap" id="prefWheelWrap">
+          <svg class="pref-wheel-svg" id="prefWheelSvg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Preference wheel">
+
+            <!-- ── SLICE 1: CRAVING (top-right, 0-90deg) ── -->
+            <g class="wheel-slice-g" data-section="craving" tabindex="0" role="button" aria-label="Craving preference">
+              <path class="wheel-slice" id="slice-craving"
+                d="M200,200 L200,12 A188,188 0 0,1 388,200 Z"
+                fill="#FFD6BA" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="302" y="108" text-anchor="middle">&#127860;</text>
+              <text class="wheel-label-txt" x="302" y="128" text-anchor="middle">Craving</text>
+              <text class="wheel-badge-txt" id="badge-craving" x="302" y="148" text-anchor="middle"></text>
+            </g>
+
+            <!-- ── SLICE 2: SPICE (bottom-right, 90-180deg) ── -->
+            <g class="wheel-slice-g" data-section="spice" tabindex="0" role="button" aria-label="Spice preference">
+              <path class="wheel-slice" id="slice-spice"
+                d="M200,200 L388,200 A188,188 0 0,1 200,388 Z"
+                fill="#FFBABA" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="302" y="292" text-anchor="middle">&#127798;&#65039;</text>
+              <text class="wheel-label-txt" x="302" y="312" text-anchor="middle">Spice</text>
+              <text class="wheel-badge-txt" id="badge-spice" x="302" y="332" text-anchor="middle"></text>
+            </g>
+
+            <!-- ── SLICE 3: HUNGER (bottom-left, 180-270deg) ── -->
+            <g class="wheel-slice-g" data-section="hunger" tabindex="0" role="button" aria-label="Hunger preference">
+              <path class="wheel-slice" id="slice-hunger"
+                d="M200,200 L200,388 A188,188 0 0,1 12,200 Z"
+                fill="#BAF0D6" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="98" y="292" text-anchor="middle">&#127869;&#65039;</text>
+              <text class="wheel-label-txt" x="98" y="312" text-anchor="middle">Hunger</text>
+              <text class="wheel-badge-txt" id="badge-hunger" x="98" y="332" text-anchor="middle"></text>
+            </g>
+
+            <!-- ── SLICE 4: BUDGET (top-left, 270-360deg) ── -->
+            <g class="wheel-slice-g" data-section="budget" tabindex="0" role="button" aria-label="Budget preference">
+              <path class="wheel-slice" id="slice-budget"
+                d="M200,200 L12,200 A188,188 0 0,1 200,12 Z"
+                fill="#FFF4BA" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="98" y="108" text-anchor="middle">&#128176;</text>
+              <text class="wheel-label-txt" x="98" y="128" text-anchor="middle">Budget</text>
+              <text class="wheel-badge-txt" id="badge-budget" x="98" y="148" text-anchor="middle"></text>
+            </g>
+
+            <!-- Center hub -->
+            <circle cx="200" cy="200" r="72" fill="white" stroke="#eeebe6" stroke-width="3" class="wheel-hub"/>
+            <text x="200" y="193" text-anchor="middle" class="hub-ate">ATE</text>
+            <text x="200" y="213" text-anchor="middle" class="hub-sub" id="hubSub">&#127860; Choose!</text>
+
+          </svg>
         </div>
-        <button class="any-btn active" id="anyTaste">✨ Any taste</button>
-      </section>
-
-      <!-- SPICINESS -->
-      <section class="pref-section" id="section-spice">
-        <h2 class="pref-title">🌶️ How spicy?</h2>
-        <div class="option-group" id="spiceGroup">
-          <button class="option-btn" data-value="not-spicy">🙂 Not Spicy</button>
-          <button class="option-btn" data-value="mild">🌶️ Mild</button>
-          <button class="option-btn" data-value="medium">🌶️🌶️ Medium</button>
-          <button class="option-btn" data-value="very-spicy">🌶️🌶️🌶️ Very Spicy</button>
-          <button class="option-btn active" data-value="any">🤷 Any</button>
-        </div>
-      </section>
-
-      <!-- HUNGER -->
-      <section class="pref-section" id="section-hunger">
-        <h2 class="pref-title">😤 How hungry are you?</h2>
-        <div class="option-group" id="hungerGroup">
-          <button class="option-btn" data-value="light">🥗 Light</button>
-          <button class="option-btn active" data-value="normal">🍽️ Normal</button>
-          <button class="option-btn" data-value="heavy">🍖 Very Hungry</button>
-        </div>
-      </section>
-
-      <!-- BUDGET -->
-      <section class="pref-section" id="section-budget">
-        <h2 class="pref-title">💸 What's your budget?</h2>
-        <div class="option-group" id="budgetGroup">
-          <button class="option-btn" data-value="under10">💰 Under RM10</button>
-          <button class="option-btn" data-value="10to20">💵 RM10–20</button>
-          <button class="option-btn" data-value="20to40">💳 RM20–40</button>
-          <button class="option-btn" data-value="40plus">💎 RM40+</button>
-          <button class="option-btn active" data-value="any">🤷 Any</button>
-        </div>
-      </section>
-
-
-      <!-- RESET + PICK BUTTONS -->
-      <div class="action-row">
-        <button class="reset-btn" id="resetFilters">🔄 Reset Filters</button>
-        <button class="pick-btn" id="pickForMe">🎰 PICK FOR ME</button>
       </div>
 
+      <!-- RIGHT: Options Panel -->
+      <div class="wheel-panel-area" id="wheelPanelArea">
+
+        <!-- Default state -->
+        <div class="panel-default" id="panelDefault">
+          <p class="panel-default-msg">&#128072; Tap a wheel slice<br>to set your preference</p>
+        </div>
+
+        <!-- CRAVING panel -->
+        <div class="options-panel" id="panel-craving" hidden>
+          <h3 class="panel-title craving-color">&#127860; What are you craving?</h3>
+          <p class="panel-hint">Select one or more. None = Any taste.</p>
+          <div class="taste-grid">
+            <button class="taste-btn" data-taste="sweet">&#127852; Sweet</button>
+            <button class="taste-btn" data-taste="salty">&#129474; Salty</button>
+            <button class="taste-btn" data-taste="sour">&#127819; Sour</button>
+            <button class="taste-btn" data-taste="bitter">&#127807; Bitter</button>
+            <button class="taste-btn" data-taste="spicy">&#127798;&#65039; Spicy</button>
+            <button class="taste-btn" data-taste="savory">&#128523; Savory</button>
+          </div>
+          <button class="any-btn active" id="anyTaste">&#10024; Any taste</button>
+        </div>
+
+        <!-- SPICE panel -->
+        <div class="options-panel" id="panel-spice" hidden>
+          <h3 class="panel-title spice-color">&#127798;&#65039; How spicy?</h3>
+          <div class="option-group" id="spiceGroup">
+            <button class="option-btn" data-value="not-spicy">&#128578; Not Spicy</button>
+            <button class="option-btn" data-value="mild">&#127798;&#65039; Mild</button>
+            <button class="option-btn" data-value="medium">&#127798;&#65039;&#127798;&#65039; Medium</button>
+            <button class="option-btn" data-value="very-spicy">&#127798;&#65039;&#127798;&#65039;&#127798;&#65039; Very Spicy</button>
+            <button class="option-btn active" data-value="any">&#129335; Any</button>
+          </div>
+        </div>
+
+        <!-- HUNGER panel -->
+        <div class="options-panel" id="panel-hunger" hidden>
+          <h3 class="panel-title hunger-color">&#129293; How hungry are you?</h3>
+          <div class="option-group" id="hungerGroup">
+            <button class="option-btn" data-value="light">&#129367; Light</button>
+            <button class="option-btn active" data-value="normal">&#127869;&#65039; Normal</button>
+            <button class="option-btn" data-value="heavy">&#129390; Very Hungry</button>
+          </div>
+        </div>
+
+        <!-- BUDGET panel -->
+        <div class="options-panel" id="panel-budget" hidden>
+          <h3 class="panel-title budget-color">&#128176; What&apos;s your budget?</h3>
+          <div class="option-group" id="budgetGroup">
+            <button class="option-btn" data-value="under10">&#128176; Under RM10</button>
+            <button class="option-btn" data-value="10to20">&#128181; RM10&ndash;20</button>
+            <button class="option-btn" data-value="20to40">&#128179; RM20&ndash;40</button>
+            <button class="option-btn" data-value="40plus">&#128142; RM40+</button>
+            <button class="option-btn active" data-value="any">&#129335; Any</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Action row -->
+    <div class="wheel-action-row">
+      <button class="reset-btn" id="resetFilters">&#128260; Reset</button>
+      <button class="pick-btn" id="pickForMe">&#127920; PICK FOR ME</button>
     </div>
   </main>
 
   <!-- SLOT MACHINE OVERLAY -->
   <div class="slot-overlay" id="slotOverlay" aria-live="polite" aria-atomic="true">
+    <!-- Blurred wheel clone shown in background -->
+    <div class="slot-wheel-bg" id="slotWheelBg" aria-hidden="true"></div>
     <div class="slot-box">
-      <p class="slot-label">🎰 Finding your perfect meal...</p>
+      <p class="slot-label">&#127920; Finding your perfect meal...</p>
       <div class="slot-card" id="slotCard">
-        <div class="slot-emoji" id="slotEmoji">🍽️</div>
+        <div class="slot-emoji" id="slotEmoji">&#127869;&#65039;</div>
         <div class="slot-name" id="slotName">Loading...</div>
       </div>
       <div class="slot-dots">
@@ -125,23 +190,23 @@
     <div class="result-container">
       <div class="result-card" id="resultCard">
         <div class="result-confetti" id="confettiContainer"></div>
-        <div class="result-emoji" id="resultEmoji">🍜</div>
+        <div class="result-emoji" id="resultEmoji">&#127836;</div>
         <h2 class="result-name" id="resultName">Ramen</h2>
         <div class="result-price" id="resultPrice">RM15</div>
         <div class="result-tags" id="resultTags"></div>
         <div class="result-taste-bars" id="resultTasteBars"></div>
         <p class="result-description" id="resultDescription"></p>
         <div class="result-actions">
-          <button class="btn-try-again" id="tryAgain">🎰 Try Again</button>
-          <button class="btn-favorite" id="saveToFav">❤️ Save to Favorites</button>
-          <button class="btn-change-pref" id="changePreferences">↩️ Change Preferences</button>
+          <button class="btn-try-again" id="tryAgain">&#127920; Try Again</button>
+          <button class="btn-favorite" id="saveToFav">&#10084;&#65039; Save to Favorites</button>
+          <button class="btn-change-pref" id="changePreferences">&#8617;&#65039; Change Preferences</button>
         </div>
-        <!-- Memory CTA — shown after result -->
+        <!-- Memory CTA -->
         <div class="memory-cta" id="memoryCta">
           <div class="nearby-divider"></div>
-          <p class="nearby-prompt">📸 Wanna remember this moment?</p>
+          <p class="nearby-prompt">&#128248; Wanna remember this moment?</p>
           <button class="btn-save-memory" id="saveMemoryBtn">
-            📷 Save a Food Memory
+            &#128247; Save a Food Memory
           </button>
         </div>
       </div>
@@ -151,24 +216,24 @@
   <!-- NO MATCH STATE -->
   <section class="no-match-section" id="noMatchSection" hidden>
     <div class="no-match-box">
-      <div class="no-match-emoji">😭</div>
-      <h2>We couldn't find a match.</h2>
+      <div class="no-match-emoji">&#128557;</div>
+      <h2>We couldn&apos;t find a match.</h2>
       <p>Try relaxing your filters:</p>
       <ul class="no-match-tips">
         <li>Remove one taste preference</li>
         <li>Increase your budget</li>
-        <li>Choose "Anywhere"</li>
-        <li>Choose "Any" for spice</li>
+        <li>Choose &ldquo;Any&rdquo; for spice</li>
       </ul>
-      <button class="btn-relax" id="relaxFilters">🔄 Relax My Filters</button>
+      <button class="btn-relax" id="relaxFilters">&#128260; Relax My Filters</button>
     </div>
   </section>
 
-  <!-- TOAST CONTAINER -->
+  <!-- TOAST -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
   <script src="foods.js"></script>
   <script src="script.js"></script>
+  <script src="wheel.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var btn = document.getElementById('saveMemoryBtn');
