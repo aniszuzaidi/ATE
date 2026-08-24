@@ -1948,198 +1948,194 @@ img { max-width: 100%; display: block; }
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
 }
-
 /* ============================================================
-   PREFERENCE WHEEL
+   PREFERENCE WHEEL (Centered Layout & Cute Design)
    ============================================================ */
 
 .wheel-main {
-  max-width: 860px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 0 1.5rem 4rem;
 }
 
-.wheel-hint {
-  text-align: center;
-  font-size: .78rem;
-  color: var(--muted);
-  margin-bottom: .75rem;
-  letter-spacing: .03em;
-}
-
-/* Two-column layout: wheel + panel side by side */
+/* Centered layout */
 .wheel-layout {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  min-height: 420px;
+  gap: 2rem;
+  width: 100%;
 }
 
-/* Wheel container */
 .wheel-area {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
+
 .pref-wheel-wrap {
-  width: 340px;
-  height: 340px;
+  width: 320px;
+  height: 320px;
   max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .pref-wheel-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 6px 24px rgba(0,0,0,.10));
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,.08));
 }
 
-/* Each pie slice group */
 .wheel-slice-g {
   cursor: pointer;
   outline: none;
 }
+
 .wheel-slice {
-  transition: filter .22s ease, transform .22s cubic-bezier(.34,1.56,.64,1);
+  transition: filter .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
   transform-origin: 200px 200px;
   transform-box: fill-box;
 }
 
-/* Hover & focus */
+/* Slice hover */
 .wheel-slice-g:hover .wheel-slice,
 .wheel-slice-g:focus .wheel-slice {
-  filter: brightness(1.08) drop-shadow(0 0 14px rgba(255,107,43,.3));
-  transform: scale(1.04);
+  filter: brightness(1.04) drop-shadow(0 0 12px rgba(255,107,43,.2));
+  transform: scale(1.035);
 }
 
-/* Active (selected) slice */
+/* Active slice border & soft glow */
 .wheel-slice-g.active-slice .wheel-slice {
-  filter: brightness(1.12) drop-shadow(0 0 18px rgba(255,107,43,.45));
-  transform: scale(1.055);
+  filter: brightness(1.06) drop-shadow(0 0 18px rgba(255,107,43,.35));
+  transform: scale(1.05);
   stroke: var(--accent) !important;
-  stroke-width: 5;
+  stroke-width: 4.5;
 }
 
-/* Text elements on wheel */
+/* Wheel fonts explicitly styled */
 .wheel-emoji {
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   dominant-baseline: middle;
   pointer-events: none;
   user-select: none;
-  transition: font-size .2s;
+  transition: transform .2s ease;
 }
-.wheel-slice-g:hover .wheel-emoji { font-size: 1.85rem; }
-.wheel-slice-g.active-slice .wheel-emoji { font-size: 1.9rem; }
+.wheel-slice-g:hover .wheel-emoji {
+  transform: scale(1.15);
+}
 
 .wheel-label-txt {
-  font-family: var(--font);
-  font-size: .72rem;
+  font-family: 'Poppins', -apple-system, sans-serif !important;
+  font-size: .8rem;
   font-weight: 700;
-  fill: #5a4a3a;
+  fill: #4a3c31;
   pointer-events: none;
   user-select: none;
-  letter-spacing: .03em;
-  transition: font-size .2s, fill .2s;
-}
-.wheel-slice-g:hover .wheel-label-txt,
-.wheel-slice-g.active-slice .wheel-label-txt {
-  font-size: .82rem;
-  fill: #2d2d2d;
+  letter-spacing: .02em;
 }
 
 .wheel-badge-txt {
-  font-family: var(--font);
-  font-size: .62rem;
+  font-family: 'Poppins', -apple-system, sans-serif !important;
+  font-size: .68rem;
   font-weight: 600;
   fill: var(--accent);
   pointer-events: none;
   user-select: none;
 }
 
-/* Center hub */
-.wheel-hub { transition: r .2s; }
+/* Hub */
+.wheel-hub {
+  fill: #ffffff;
+  stroke: #eeebe6;
+  stroke-width: 4;
+}
 .hub-ate {
-  font-family: var(--font);
-  font-size: 1.6rem;
+  font-family: 'Poppins', -apple-system, sans-serif !important;
+  font-size: 1.65rem;
   font-weight: 800;
   fill: var(--accent);
   dominant-baseline: middle;
   user-select: none;
 }
 .hub-sub {
-  font-family: var(--font);
-  font-size: .62rem;
+  font-family: 'Poppins', -apple-system, sans-serif !important;
+  font-size: .68rem;
+  font-weight: 600;
   fill: var(--muted);
   dominant-baseline: middle;
   user-select: none;
 }
 
-/* Options panel (right side) */
+/* Options panel (Centered below) */
 .wheel-panel-area {
-  min-height: 240px;
-  display: flex;
-  align-items: flex-start;
-}
-
-.panel-default {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 240px;
-}
-.panel-default-msg {
-  color: var(--muted);
-  font-size: .95rem;
-  text-align: center;
-  line-height: 1.8;
-  opacity: .7;
+  min-height: 200px;
 }
 
 .options-panel {
   width: 100%;
   background: var(--card);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.6rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
-  animation: panelSlideIn .22s cubic-bezier(.34,1.56,.64,1);
+  box-sizing: border-box;
+  animation: panelPop .25s cubic-bezier(.34,1.56,.64,1);
 }
 
-@keyframes panelSlideIn {
-  from { opacity: 0; transform: translateX(-10px) scale(.97); }
-  to   { opacity: 1; transform: translateX(0) scale(1); }
+@keyframes panelPop {
+  from { opacity: 0; transform: translateY(12px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .panel-title {
-  font-size: 1rem;
+  font-family: 'Poppins', -apple-system, sans-serif;
+  font-size: 1.05rem;
   font-weight: 800;
   margin-bottom: .3rem;
 }
-.panel-hint { font-size: .78rem; color: var(--muted); margin-bottom: .9rem; display: block; }
+.panel-hint {
+  font-family: 'Poppins', -apple-system, sans-serif;
+  font-size: .78rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: block;
+}
 
-/* Colour accent per panel */
-.craving-color { color: #e07a40; }
-.spice-color   { color: #d94040; }
-.hunger-color  { color: #2a9d60; }
-.budget-color  { color: #c49a00; }
+.craving-color { color: #f77a3b; }
+.spice-color   { color: #e54d4d; }
+.hunger-color  { color: #27ae60; }
+.budget-color  { color: #d4a317; }
 
-/* Action row */
+/* Actions */
 .wheel-action-row {
   display: flex;
   gap: 1rem;
   align-items: center;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+.wheel-action-row .reset-btn {
+  padding: .85rem 1.8rem;
+  font-weight: 600;
+}
+.wheel-action-row .pick-btn {
+  flex: 1;
+  max-width: 320px;
 }
 
-/* ── Slot overlay: show wheel blurred behind popup ── */
+/* Slot Machine Background blur overlay */
 .slot-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 10, 0, 0.55);
-  backdrop-filter: blur(3px);
-  z-index: 200;
+  background: rgba(26, 13, 3, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 300;
   display: none;
   align-items: center;
   justify-content: center;
@@ -2153,22 +2149,27 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 .slot-wheel-bg svg {
-  width: min(340px, 80vw);
-  height: min(340px, 80vw);
+  width: 320px;
+  height: 320px;
   opacity: .35;
-  filter: blur(4px) brightness(.75);
+  filter: blur(3px) brightness(.8);
 }
 
-/* ── Responsive: stack on mobile ── */
-@media (max-width: 600px) {
-  .wheel-layout {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 1.25rem;
-    min-height: unset;
+@media (max-width: 480px) {
+  .pref-wheel-wrap {
+    width: 280px;
+    height: 280px;
   }
-  .pref-wheel-wrap { width: 300px; height: 300px; }
-  .wheel-panel-area { width: 100%; }
-  .wheel-action-row { flex-direction: column; }
-  .pick-btn { width: 100%; text-align: center; }
+  .wheel-action-row {
+    flex-direction: column-reverse;
+    gap: .75rem;
+  }
+  .wheel-action-row .pick-btn {
+    width: 100%;
+    max-width: unset;
+  }
+  .wheel-action-row .reset-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
