@@ -47,9 +47,8 @@
   <main class="wheel-main" id="wheelMain">
     <div class="wheel-layout">
 
-      <!-- LEFT: The Wheel -->
+      <!-- Centered SVG Wheel -->
       <div class="wheel-area">
-        <div class="wheel-hint">Tap a slice to set your preference</div>
         <div class="pref-wheel-wrap" id="prefWheelWrap">
           <svg class="pref-wheel-svg" id="prefWheelSvg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="Preference wheel">
 
@@ -57,58 +56,53 @@
             <g class="wheel-slice-g" data-section="craving" tabindex="0" role="button" aria-label="Craving preference">
               <path class="wheel-slice" id="slice-craving"
                 d="M200,200 L200,12 A188,188 0 0,1 388,200 Z"
-                fill="#FFD6BA" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="302" y="108" text-anchor="middle">&#127860;</text>
-              <text class="wheel-label-txt" x="302" y="128" text-anchor="middle">Craving</text>
-              <text class="wheel-badge-txt" id="badge-craving" x="302" y="148" text-anchor="middle"></text>
+                fill="#FFF2E6" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="300" y="105" text-anchor="middle">&#127860;</text>
+              <text class="wheel-label-txt" x="300" y="127" text-anchor="middle">Craving</text>
+              <text class="wheel-badge-txt" id="badge-craving" x="300" y="147" text-anchor="middle"></text>
             </g>
 
             <!-- ── SLICE 2: SPICE (bottom-right, 90-180deg) ── -->
             <g class="wheel-slice-g" data-section="spice" tabindex="0" role="button" aria-label="Spice preference">
               <path class="wheel-slice" id="slice-spice"
                 d="M200,200 L388,200 A188,188 0 0,1 200,388 Z"
-                fill="#FFBABA" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="302" y="292" text-anchor="middle">&#127798;&#65039;</text>
-              <text class="wheel-label-txt" x="302" y="312" text-anchor="middle">Spice</text>
-              <text class="wheel-badge-txt" id="badge-spice" x="302" y="332" text-anchor="middle"></text>
+                fill="#FFEBEB" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="300" y="285" text-anchor="middle">&#127798;&#65039;</text>
+              <text class="wheel-label-txt" x="300" y="307" text-anchor="middle">Spice</text>
+              <text class="wheel-badge-txt" id="badge-spice" x="300" y="327" text-anchor="middle"></text>
             </g>
 
             <!-- ── SLICE 3: HUNGER (bottom-left, 180-270deg) ── -->
             <g class="wheel-slice-g" data-section="hunger" tabindex="0" role="button" aria-label="Hunger preference">
               <path class="wheel-slice" id="slice-hunger"
                 d="M200,200 L200,388 A188,188 0 0,1 12,200 Z"
-                fill="#BAF0D6" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="98" y="292" text-anchor="middle">&#127869;&#65039;</text>
-              <text class="wheel-label-txt" x="98" y="312" text-anchor="middle">Hunger</text>
-              <text class="wheel-badge-txt" id="badge-hunger" x="98" y="332" text-anchor="middle"></text>
+                fill="#EBF8F2" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="100" y="285" text-anchor="middle">&#127869;&#65039;</text>
+              <text class="wheel-label-txt" x="100" y="307" text-anchor="middle">Hunger</text>
+              <text class="wheel-badge-txt" id="badge-hunger" x="100" y="327" text-anchor="middle"></text>
             </g>
 
             <!-- ── SLICE 4: BUDGET (top-left, 270-360deg) ── -->
             <g class="wheel-slice-g" data-section="budget" tabindex="0" role="button" aria-label="Budget preference">
               <path class="wheel-slice" id="slice-budget"
                 d="M200,200 L12,200 A188,188 0 0,1 200,12 Z"
-                fill="#FFF4BA" stroke="white" stroke-width="4"/>
-              <text class="wheel-emoji" x="98" y="108" text-anchor="middle">&#128176;</text>
-              <text class="wheel-label-txt" x="98" y="128" text-anchor="middle">Budget</text>
-              <text class="wheel-badge-txt" id="badge-budget" x="98" y="148" text-anchor="middle"></text>
+                fill="#FFFDEB" stroke="white" stroke-width="4"/>
+              <text class="wheel-emoji" x="100" y="105" text-anchor="middle">&#128176;</text>
+              <text class="wheel-label-txt" x="100" y="127" text-anchor="middle">Budget</text>
+              <text class="wheel-badge-txt" id="badge-budget" x="100" y="147" text-anchor="middle"></text>
             </g>
 
-            <!-- Center hub -->
-            <circle cx="200" cy="200" r="72" fill="white" stroke="#eeebe6" stroke-width="3" class="wheel-hub"/>
+            <!-- Cute center hub -->
+            <circle cx="200" cy="200" r="76" fill="white" stroke="#eeebe6" stroke-width="3" class="wheel-hub"/>
             <text x="200" y="193" text-anchor="middle" class="hub-ate">ATE</text>
-            <text x="200" y="213" text-anchor="middle" class="hub-sub" id="hubSub">&#127860; Choose!</text>
+            <text x="200" y="214" text-anchor="middle" class="hub-sub" id="hubSub">&#127860; Craving</text>
 
           </svg>
         </div>
       </div>
 
-      <!-- RIGHT: Options Panel -->
+      <!-- Centered Options Panel below the Wheel -->
       <div class="wheel-panel-area" id="wheelPanelArea">
-
-        <!-- Default state -->
-        <div class="panel-default" id="panelDefault">
-          <p class="panel-default-msg">&#128072; Tap a wheel slice<br>to set your preference</p>
-        </div>
 
         <!-- CRAVING panel -->
         <div class="options-panel" id="panel-craving" hidden>
@@ -139,7 +133,7 @@
 
         <!-- HUNGER panel -->
         <div class="options-panel" id="panel-hunger" hidden>
-          <h3 class="panel-title hunger-color">&#129293; How hungry are you?</h3>
+          <h3 class="panel-title hunger-color">&#127869;&#65039; How hungry are you?</h3>
           <div class="option-group" id="hungerGroup">
             <button class="option-btn" data-value="light">&#129367; Light</button>
             <button class="option-btn active" data-value="normal">&#127869;&#65039; Normal</button>
@@ -162,7 +156,7 @@
       </div>
     </div>
 
-    <!-- Action row -->
+    <!-- Centered Action buttons -->
     <div class="wheel-action-row">
       <button class="reset-btn" id="resetFilters">&#128260; Reset</button>
       <button class="pick-btn" id="pickForMe">&#127920; PICK FOR ME</button>
@@ -171,7 +165,6 @@
 
   <!-- SLOT MACHINE OVERLAY -->
   <div class="slot-overlay" id="slotOverlay" aria-live="polite" aria-atomic="true">
-    <!-- Blurred wheel clone shown in background -->
     <div class="slot-wheel-bg" id="slotWheelBg" aria-hidden="true"></div>
     <div class="slot-box">
       <p class="slot-label">&#127920; Finding your perfect meal...</p>
@@ -228,7 +221,7 @@
     </div>
   </section>
 
-  <!-- TOAST -->
+  <!-- TOAST CONTAINER -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
   <script src="foods.js"></script>
