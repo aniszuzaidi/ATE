@@ -1,7 +1,5 @@
 /**
- * wheel.js - Preference Wheel UI logic for ATE
- * Handles section clicks, panel toggling, and badge updates.
- * Does NOT touch any existing food/filtering/scoring logic.
+ * wheel.js - Centered Preference Wheel UI logic for ATE
  */
 
 (function() {
@@ -14,7 +12,6 @@
     budget:  { panel: 'panel-budget',  badge: 'badge-budget',  hub: 'Budget'  }
   };
 
-  /* Summarise current preference into a short badge text */
   function getBadgeText(section) {
     if (section === 'craving') {
       var selected = [];
@@ -23,7 +20,7 @@
       });
       if (selected.length === 0) return 'Any';
       var labels = { sweet:'Sweet', salty:'Salty', sour:'Sour', bitter:'Bitter', spicy:'Spicy', savory:'Savory' };
-      return selected.slice(0,2).map(function(t){ return labels[t] || t; }).join('+') + (selected.length > 2 ? '...' : '');
+      return selected.slice(0, 2).map(function(t){ return labels[t] || t; }).join('+') + (selected.length > 2 ? '...' : '');
     }
     if (section === 'spice') {
       var btn = document.querySelector('#spiceGroup .option-btn.active');
@@ -57,29 +54,15 @@
   }
 
   function showPanel(section) {
-    // Hide all panels + default
     Object.values(SECTIONS).forEach(function(s) {
       var p = document.getElementById(s.panel);
       if (p) p.hidden = true;
     });
-    var def = document.getElementById('panelDefault');
-    if (def) def.hidden = true;
 
-    // Deactivate all slices
     document.querySelectorAll('.wheel-slice-g').forEach(function(g) {
       g.classList.remove('active-slice');
     });
 
-    if (activeSection === section) {
-      // Clicking same section toggles it off
-      activeSection = null;
-      if (def) def.hidden = false;
-      var hubSub = document.getElementById('hubSub');
-      if (hubSub) hubSub.textContent = '\u{1F374} Choose!';
-      return;
-    }
-
-    // Activate this section
     activeSection = section;
     var panel = document.getElementById(SECTIONS[section].panel);
     if (panel) panel.hidden = false;
@@ -91,17 +74,14 @@
     if (hubSub) hubSub.textContent = SECTIONS[section].hub;
   }
 
-  /* Mirror the wheel into the slot overlay background */
   function mirrorWheelToSlot() {
     var bg = document.getElementById('slotWheelBg');
     var src = document.getElementById('prefWheelWrap');
     if (!bg || !src) return;
-    // Clone the SVG wheel into the slot bg div
     bg.innerHTML = src.innerHTML;
   }
 
   function initWheel() {
-    // Wire slice clicks
     document.querySelectorAll('.wheel-slice-g').forEach(function(g) {
       var section = g.getAttribute('data-section');
       g.addEventListener('click', function() { showPanel(section); });
@@ -110,35 +90,33 @@
       });
     });
 
-    // Watch for any preference change and update badges
-    // Taste buttons
+    // Taste buttons listeners
     document.querySelectorAll('.taste-btn').forEach(function(b) {
       b.addEventListener('click', function() { setTimeout(function() { updateBadge('craving'); }, 10); });
     });
     var anyTaste = document.getElementById('anyTaste');
     if (anyTaste) anyTaste.addEventListener('click', function() { setTimeout(function() { updateBadge('craving'); }, 10); });
 
-    // Option groups
+    // Option groups listeners
     ['spiceGroup', 'hungerGroup', 'budgetGroup'].forEach(function(id) {
       var section = id.replace('Group', '');
       var g = document.getElementById(id);
       if (g) g.addEventListener('click', function() { setTimeout(function() { updateBadge(section); }, 10); });
     });
 
-    // Mirror wheel when pick btn clicked
     var pickBtn = document.getElementById('pickForMe');
     if (pickBtn) {
       pickBtn.addEventListener('click', function() {
         mirrorWheelToSlot();
-      }, true); // capture so it runs before existing listener
+      }, true);
     }
 
-    // Initial badges
     updateAllBadges();
+    
+    // Set Craving panel visible by default on load
+    showPanel('craving');
   }
 
-  // Expose for script.js resets
   window.updateWheelBadges = updateAllBadges;
-
   document.addEventListener('DOMContentLoaded', initWheel);
 })();
