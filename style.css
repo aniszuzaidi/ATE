@@ -181,13 +181,13 @@ img { max-width: 100%; display: block; }
    ============================================================ */
 .hero {
   text-align: center;
-  padding: 4rem 2rem 2rem;
+  padding: 2.2rem 1.5rem 1.2rem;
   background: linear-gradient(160deg, #fff9f5 0%, #fdf0e6 100%);
   border-bottom: 1px solid var(--border);
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -1px;
@@ -197,16 +197,16 @@ img { max-width: 100%; display: block; }
 .hero-title span { color: var(--accent); }
 
 .hero-subtitle {
-  margin-top: .75rem;
-  font-size: 1.1rem;
+  margin-top: .4rem;
+  font-size: 0.95rem;
   color: var(--muted);
   max-width: 480px;
   margin-inline: auto;
 }
 
 .hero-tagline {
-  margin-top: .5rem;
-  font-size: .95rem;
+  margin-top: .3rem;
+  font-size: .82rem;
   font-weight: 600;
   color: var(--accent);
 }
@@ -1973,10 +1973,10 @@ img { max-width: 100%; display: block; }
   justify-content: center;
 }
 
-/* Relative container holding both SVG and HTML elements */
+/* Relative container holding both SVG and HTML elements - Scaled up from 320px to 380px */
 .pref-wheel-wrap {
-  width: 320px;
-  height: 320px;
+  width: 380px;
+  height: 380px;
   max-width: 90vw;
   position: relative;
   display: flex;
@@ -2059,23 +2059,23 @@ img { max-width: 100%; display: block; }
   height: 30%;
 }
 
-/* Overlay elements style */
+/* Overlay elements style - Adjusted sizes to look cleaner and less bulky */
 .wheel-emoji {
-  font-size: 2.1rem;
+  font-size: 1.8rem;
   line-height: 1;
   margin-bottom: 3px;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,.08));
 }
 .wheel-label-txt {
   font-family: 'Poppins', -apple-system, sans-serif !important;
-  font-size: .85rem;
+  font-size: .7rem;
   font-weight: 700;
   color: var(--text);
   line-height: 1.2;
 }
 .wheel-badge-txt {
   font-family: 'Poppins', -apple-system, sans-serif !important;
-  font-size: .72rem;
+  font-size: .62rem;
   font-weight: 600;
   color: var(--accent);
   margin-top: 1px;
@@ -2101,7 +2101,7 @@ img { max-width: 100%; display: block; }
 }
 .hub-ate {
   font-family: 'Poppins', -apple-system, sans-serif !important;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: 800;
   fill: var(--accent);
   color: var(--accent);
@@ -2110,7 +2110,7 @@ img { max-width: 100%; display: block; }
 }
 .hub-sub {
   font-family: 'Poppins', -apple-system, sans-serif !important;
-  font-size: .7rem;
+  font-size: .6rem;
   font-weight: 600;
   color: var(--muted);
 }
@@ -2192,8 +2192,8 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
 }
 .slot-wheel-bg .pref-wheel-svg {
-  width: 320px;
-  height: 320px;
+  width: 380px;
+  height: 380px;
   opacity: .35;
   filter: blur(3px) brightness(.8);
 }
@@ -2209,13 +2209,13 @@ img { max-width: 100%; display: block; }
     height: 280px;
   }
   .wheel-emoji {
-    font-size: 1.85rem;
+    font-size: 1.5rem;
   }
   .wheel-label-txt {
-    font-size: .8rem;
+    font-size: .65rem;
   }
   .wheel-badge-txt {
-    font-size: .65rem;
+    font-size: .58rem;
   }
   .wheel-action-row {
     flex-direction: column-reverse;
