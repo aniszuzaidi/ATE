@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATE — What Should I Eat?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-ate">ATE</span>
+      <div class="pacman-wrapper" aria-hidden="true">
+        <div class="pacman"></div>
+        <div class="pacman-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link active">🍽️ Decide</a></li>
+      <li><a href="foods.html" class="nav-link">🍜 My Foods</a></li>
+      <li><a href="favorites.html" class="nav-link">❤️ Favorites</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">What Should I Eat?</h1>
+      <p class="hero-subtitle">Can't decide? Tell us what you're craving and we'll pick for you.</p>
+      <p class="hero-tagline">No more "you choose." We choose. 😌</p>
+    </div>
+  </section>
+
+  <!-- PREFERENCES SECTION -->
+  <main class="preferences-wrapper">
+    <div class="preferences-container">
+
+      <!-- TASTE -->
+      <section class="pref-section" id="section-taste">
+        <h2 class="pref-title">🍴 What are you craving?</h2>
+        <p class="pref-hint">Select one or more. Selecting none = Any taste.</p>
+        <div class="taste-grid">
+          <button class="taste-btn" data-taste="sweet">🍬 Sweet</button>
+          <button class="taste-btn" data-taste="salty">🧂 Salty</button>
+          <button class="taste-btn" data-taste="sour">🍋 Sour</button>
+          <button class="taste-btn" data-taste="bitter">🌿 Bitter</button>
+          <button class="taste-btn" data-taste="spicy">🌶️ Spicy</button>
+          <button class="taste-btn" data-taste="savory">😋 Savory</button>
+        </div>
+        <button class="any-btn active" id="anyTaste">✨ Any taste</button>
+      </section>
+
+      <!-- SPICINESS -->
+      <section class="pref-section" id="section-spice">
+        <h2 class="pref-title">🌶️ How spicy?</h2>
+        <div class="option-group" id="spiceGroup">
+          <button class="option-btn" data-value="not-spicy">🙂 Not Spicy</button>
+          <button class="option-btn" data-value="mild">🌶️ Mild</button>
+          <button class="option-btn" data-value="medium">🌶️🌶️ Medium</button>
+          <button class="option-btn" data-value="very-spicy">🌶️🌶️🌶️ Very Spicy</button>
+          <button class="option-btn active" data-value="any">🤷 Any</button>
+        </div>
+      </section>
+
+      <!-- HUNGER -->
+      <section class="pref-section" id="section-hunger">
+        <h2 class="pref-title">😤 How hungry are you?</h2>
+        <div class="option-group" id="hungerGroup">
+          <button class="option-btn" data-value="light">🥗 Light</button>
+          <button class="option-btn active" data-value="normal">🍽️ Normal</button>
+          <button class="option-btn" data-value="heavy">🍖 Very Hungry</button>
+        </div>
+      </section>
+
+      <!-- BUDGET -->
+      <section class="pref-section" id="section-budget">
+        <h2 class="pref-title">💸 What's your budget?</h2>
+        <div class="option-group" id="budgetGroup">
+          <button class="option-btn" data-value="under10">💰 Under RM10</button>
+          <button class="option-btn" data-value="10to20">💵 RM10–20</button>
+          <button class="option-btn" data-value="20to40">💳 RM20–40</button>
+          <button class="option-btn" data-value="40plus">💎 RM40+</button>
+          <button class="option-btn active" data-value="any">🤷 Any</button>
+        </div>
+      </section>
+
+      <!-- DISTANCE -->
+      <section class="pref-section" id="section-distance">
+        <h2 class="pref-title">📍 How far are you willing to go?</h2>
+        <div class="option-group" id="distanceGroup">
+          <button class="option-btn" data-value="nearby">📍 Nearby (&lt;2 km)</button>
+          <button class="option-btn" data-value="farther">🚗 A little farther (2–5 km)</button>
+          <button class="option-btn active" data-value="anywhere">🌍 Anywhere</button>
+        </div>
+      </section>
+
+      <!-- RESET + PICK BUTTONS -->
+      <div class="action-row">
+        <button class="reset-btn" id="resetFilters">🔄 Reset Filters</button>
+        <button class="pick-btn" id="pickForMe">🎰 PICK FOR ME</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- SLOT MACHINE OVERLAY -->
+  <div class="slot-overlay" id="slotOverlay" aria-live="polite" aria-atomic="true">
+    <div class="slot-box">
+      <p class="slot-label">🎰 Finding your perfect meal...</p>
+      <div class="slot-card" id="slotCard">
+        <div class="slot-emoji" id="slotEmoji">🍽️</div>
+        <div class="slot-name" id="slotName">Loading...</div>
+      </div>
+      <div class="slot-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SECTION -->
+  <section class="result-section" id="resultSection" hidden>
+    <div class="result-container">
+      <div class="result-card" id="resultCard">
+        <div class="result-confetti" id="confettiContainer"></div>
+        <div class="result-emoji" id="resultEmoji">🍜</div>
+        <h2 class="result-name" id="resultName">Ramen</h2>
+        <div class="result-price" id="resultPrice">RM15</div>
+        <div class="result-tags" id="resultTags"></div>
+        <div class="result-taste-bars" id="resultTasteBars"></div>
+        <p class="result-description" id="resultDescription"></p>
+        <div class="result-actions">
+          <button class="btn-try-again" id="tryAgain">🎰 Try Again</button>
+          <button class="btn-favorite" id="saveToFav">❤️ Save to Favorites</button>
+          <button class="btn-change-pref" id="changePreferences">↩️ Change Preferences</button>
+        </div>
+        <!-- Find Nearby CTA — shown after result -->
+        <div class="find-nearby-cta" id="findNearbyCta">
+          <div class="nearby-divider"></div>
+          <p class="nearby-prompt">📍 Want to find it nearby?</p>
+          <button class="btn-find-nearby" id="findNearbyBtn">
+            🗺️ Find <span id="nearbyFoodName">this</span> Near Me
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEARBY MAP SECTION -->
+  <section class="nearby-section" id="nearbySection" hidden>
+    <div class="nearby-container">
+      <div class="nearby-header">
+        <div>
+          <h2 class="nearby-title">📍 Nearby Results</h2>
+          <p class="nearby-subtitle" id="nearbySubtitle">Finding restaurants near you...</p>
+        </div>
+        <div class="nearby-header-right">
+          <button class="nearby-close-btn" id="nearbyClose" aria-label="Close map">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Status / loading -->
+      <div class="nearby-status" id="nearbyStatus">
+        <div class="nearby-spinner"></div>
+        <div>
+          <div id="nearbyStatusText">Getting your location...</div>
+          <p id="locationFallbackText" style="margin-top: 0.35rem; font-size: 0.8rem;" hidden>
+            GPS not working? <a href="javascript:void(0)" onclick="startManualSearch()" style="color: var(--accent); font-weight: 600; text-decoration: underline;">Search manually →</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Google Maps Embed -->
+      <iframe
+        id="googleMap"
+        class="leaflet-map-container"
+        style="border:0; display:none; width:100%; border-radius: 16px;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="about:blank">
+      </iframe>
+
+      <!-- Action buttons below map -->
+      <div id="nearbyMapActions" style="display:none; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
+        <a id="gmapsFullBtn" href="#" target="_blank" rel="noopener" class="nearby-directions-btn" style="
+          display: inline-flex; align-items: center; gap: 6px;
+          background: #1a73e8; color: white;
+          padding: 10px 18px; border-radius: 50px;
+          font-size: 0.85rem; font-weight: 600; text-decoration: none;
+          box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+        ">🗺️ Open in Google Maps</a>
+        <a id="wazeFullBtn" href="#" target="_blank" rel="noopener" class="nearby-directions-btn" style="
+          display: inline-flex; align-items: center; gap: 6px;
+          background: #33ccff; color: #1a1a1a;
+          padding: 10px 18px; border-radius: 50px;
+          font-size: 0.85rem; font-weight: 600; text-decoration: none;
+          box-shadow: 0 2px 8px rgba(51,204,255,0.3);
+        ">🚙 Navigate with Waze</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NO MATCH STATE -->
+  <section class="no-match-section" id="noMatchSection" hidden>
+    <div class="no-match-box">
+      <div class="no-match-emoji">😭</div>
+      <h2>We couldn't find a match.</h2>
+      <p>Try relaxing your filters:</p>
+      <ul class="no-match-tips">
+        <li>Remove one taste preference</li>
+        <li>Increase your budget</li>
+        <li>Choose "Anywhere"</li>
+        <li>Choose "Any" for spice</li>
+      </ul>
+      <button class="btn-relax" id="relaxFilters">🔄 Relax My Filters</button>
+    </div>
+  </section>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="foods.js"></script>
+  <script src="script.js"></script>
+  <script src="nearby.js"></script>
+</body>
+</html>
+
