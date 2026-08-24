@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -157,52 +156,66 @@
     </div>
   </section>
 
-  <!-- NEARBY MAP SECTION -->
+  <!-- NEARBY SECTION — Find It Near You -->
   <section class="nearby-section" id="nearbySection" hidden>
     <div class="nearby-container">
+
       <div class="nearby-header">
         <div>
-          <h2 class="nearby-title">📍 Nearby Results</h2>
-          <p class="nearby-subtitle" id="nearbySubtitle">Finding restaurants near you...</p>
+          <h2 class="nearby-title">🗺️ Find It Near You</h2>
+          <p class="nearby-subtitle" id="nearbySubtitle">Getting your location...</p>
         </div>
-        <div class="nearby-header-right">
-          <div class="radius-selector">
-            <label for="radiusSelect">🔍 Radius</label>
-            <select id="radiusSelect" aria-label="Search radius">
-              <option value="1000">1 km</option>
-              <option value="2000" selected>2 km</option>
-              <option value="5000">5 km</option>
-              <option value="10000">10 km</option>
-              <option value="20000">20 km</option>
-            </select>
-          </div>
-          <button class="nearby-close-btn" id="nearbyClose" aria-label="Close map">✕ Close</button>
-        </div>
+        <button class="nearby-close-btn" id="nearbyClose" aria-label="Close">✕ Close</button>
       </div>
 
-      <!-- Status / loading -->
+      <!-- Spinner while getting location -->
       <div class="nearby-status" id="nearbyStatus">
         <div class="nearby-spinner"></div>
-        <div>
-          <div id="nearbyStatusText">Getting your location...</div>
-          <p id="locationFallbackText" style="margin-top: 0.35rem; font-size: 0.8rem;" hidden>
-            GPS not working? <a href="javascript:void(0)" onclick="startManualSearch()" style="color: var(--accent); font-weight: 600; text-decoration: underline;">Search manually on Google Maps →</a>
-          </p>
+        <div id="nearbyStatusText">Getting your location...</div>
+      </div>
+
+      <!-- Find It Card -->
+      <div id="findItCard" hidden style="padding: 1.5rem 0;">
+        <h3 id="findItTitle" style="font-size:1.2rem;font-weight:700;margin-bottom:.4rem;color:var(--text);"></h3>
+        <p id="findItLocationNote" style="font-size:.82rem;color:var(--muted);margin-bottom:1.5rem;"></p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+          <!-- Google Maps -->
+          <a id="btnGmaps" href="#" target="_blank" rel="noopener" class="find-it-btn" style="background:#1a73e8;">
+            <span class="find-it-icon">🗺️</span>
+            <span class="find-it-label">Google Maps</span>
+            <span class="find-it-sub">Search & navigate</span>
+          </a>
+
+          <!-- Waze -->
+          <a id="btnWaze" href="#" target="_blank" rel="noopener" class="find-it-btn" style="background:#33ccff;color:#1a1a1a;">
+            <span class="find-it-icon">🚙</span>
+            <span class="find-it-label">Waze</span>
+            <span class="find-it-sub">Navigate with Waze</span>
+          </a>
+
+          <!-- GrabFood -->
+          <a id="btnGrab" href="#" target="_blank" rel="noopener" class="find-it-btn" style="background:#00b14f;">
+            <span class="find-it-icon">🟢</span>
+            <span class="find-it-label">GrabFood</span>
+            <span class="find-it-sub">Order delivery</span>
+          </a>
+
+          <!-- Shopee Food -->
+          <a id="btnShopee" href="#" target="_blank" rel="noopener" class="find-it-btn" style="background:#ee4d2d;">
+            <span class="find-it-icon">🛵</span>
+            <span class="find-it-label">Shopee Food</span>
+            <span class="find-it-sub">Order delivery</span>
+          </a>
+
         </div>
+
+        <p style="text-align:center;font-size:.78rem;color:var(--muted);margin-top:1.2rem;">
+          Tap any app — your food search is already filled in! 🎉
+        </p>
       </div>
 
-      <!-- Leaflet Map -->
-      <div id="leafletMap" class="leaflet-map-container" hidden></div>
-
-      <!-- Results list -->
-      <div class="nearby-results-list" id="nearbyResultsList" hidden></div>
-
-      <!-- No results -->
-      <div class="nearby-no-results" id="nearbyNoResults" hidden>
-        <div class="no-match-emoji">🏙️</div>
-        <p>No restaurants found in this area.</p>
-        <p class="nearby-tip">Try increasing the radius or <a href="#" id="osmLink" target="_blank" rel="noopener">search on Google Maps</a>.</p>
-      </div>
     </div>
   </section>
 
@@ -227,8 +240,8 @@
 
   <script src="foods.js"></script>
   <script src="script.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="nearby.js"></script>
 </body>
 </html>
+
 
