@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favorites — ATE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-ate">ATE</span>
+      <div class="pacman-wrapper" aria-hidden="true">
+        <div class="pacman"></div>
+        <div class="pacman-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">🍽️ Decide</a></li>
+      <li><a href="foods.html" class="nav-link">🍜 My Foods</a></li>
+      <li><a href="favorites.html" class="nav-link active">❤️ Favorites</a></li>
+      <li><a href="memories.html" class="nav-link">📸 Memories</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <h1>❤️ Favorites</h1>
+    <p>Your saved food picks, all in one place.</p>
+  </header>
+
+  <!-- FAVORITES GRID -->
+  <main class="foods-grid-wrapper">
+    <div class="foods-grid" id="favoritesGrid"></div>
+    <div class="empty-state" id="emptyFavorites" hidden>
+      <div class="empty-emoji">💔</div>
+      <h2>No favorites yet ❤️</h2>
+      <p>Save foods you love and they'll appear here.</p>
+      <a href="index.html" class="btn-add-food">Explore Foods</a>
+    </div>
+  </main>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="foods.js"></script>
+  <script src="script.js"></script>
+  <script src="favorites-page.js"></script>
+</body>
+</html>

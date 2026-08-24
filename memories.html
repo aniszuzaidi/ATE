@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Memories &mdash; ATE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-ate">ATE</span>
+      <div class="pacman-wrapper" aria-hidden="true">
+        <div class="pacman"></div>
+        <div class="pacman-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">&#127869;&#65039; Decide</a></li>
+      <li><a href="foods.html" class="nav-link">&#127836; My Foods</a></li>
+      <li><a href="favorites.html" class="nav-link">&#10084;&#65039; Favorites</a></li>
+      <li><a href="memories.html" class="nav-link active">&#128248; Memories</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="memories-page-header">
+    <h1>&#128248; My Food Memories</h1>
+    <p>Little moments, one bite at a time. &#127860;</p>
+    <button class="btn-capture" id="captureBtn">&#128247; Capture a Memory</button>
+  </header>
+
+  <!-- EMPTY STATE -->
+  <div class="memory-empty" id="emptyMemories" hidden>
+    <div class="empty-emoji">&#128247;</div>
+    <h2>No memories yet!</h2>
+    <p>Start capturing your food moments.<br>Every meal is worth remembering. &#10024;</p>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="memories-gallery" id="memoriesGallery"></div>
+
+  <!-- ═══════════════ CAPTURE MODAL ═══════════════ -->
+  <div class="modal-overlay" id="captureModal" hidden>
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modalClose" aria-label="Close">&#10005;</button>
+      <h3 style="font-weight:800;font-size:1.15rem;margin-bottom:.5rem;">&#128247; Capture a Memory</h3>
+      <div class="modal-food-tag" id="modalFoodTag">ATE recommended: something delicious &#127869;&#65039;</div>
+
+      <div class="photo-picker-btns">
+        <button class="btn-photo-pick" id="btnCamera">
+          <span class="pick-icon">&#128247;</span>
+          <span>Take Photo</span>
+        </button>
+        <button class="btn-photo-pick" id="btnUpload">
+          <span class="pick-icon">&#128444;&#65039;</span>
+          <span>Upload Photo</span>
+        </button>
+      </div>
+
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden />
+      <input type="file" id="fileInput" accept="image/*" hidden />
+
+      <div id="photoPreview" hidden>
+        <img id="previewImg" src="" alt="Preview" />
+      </div>
+
+      <input type="text" id="captionInput" placeholder="Add a caption... (optional)" />
+
+      <button class="btn-mem-save" id="btnSaveMemory">&#128190; Save Memory</button>
+      <span class="btn-cancel-link" id="btnCancelCapture">Cancel</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ REACTION MODAL ═══════════════ -->
+  <div class="modal-overlay" id="reactionModal" hidden>
+    <div class="modal-card reaction-card">
+
+      <!-- Step 1: Checking -->
+      <div id="reactionStep1">
+        <div class="checking-spinner"></div>
+        <p style="font-weight:700;font-size:1rem;">&#128269; Checking your food memory...</p>
+        <p style="color:var(--muted);font-size:.85rem;margin-top:.3rem;">ATE is analysing your taste...<br>Just kidding &#128514; But let&apos;s see!</p>
+      </div>
+
+      <!-- Step 2: Question -->
+      <div id="reactionStep2" hidden>
+        <p style="font-size:1rem;font-weight:700;margin-bottom:.5rem;">Did you eat what ATE recommended? &#129300;</p>
+        <p id="reactionFoodName" style="font-size:1.3rem;margin-bottom:.25rem;"></p>
+        <p style="color:var(--muted);font-size:.82rem;margin-bottom:.75rem;">Be honest... &#128064;</p>
+        <div class="reaction-yes-no">
+          <button id="btnYes">&#128523; Yes, I did!</button>
+          <button id="btnNo">&#127860; Nope, something else!</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Reaction -->
+      <div id="reactionStep3" hidden>
+        <div id="reactionContent"></div>
+        <button class="btn-close-reaction" id="btnCloseReaction">Got it! &#127881;</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="foods.js"></script>
+  <script src="script.js"></script>
+  <script src="memories.js"></script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Foods — ATE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-ate">ATE</span>
+      <div class="pacman-wrapper" aria-hidden="true">
+        <div class="pacman"></div>
+        <div class="pacman-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">🍽️ Decide</a></li>
+      <li><a href="foods.html" class="nav-link active">🍜 My Foods</a></li>
+      <li><a href="favorites.html" class="nav-link">❤️ Favorites</a></li>
+      <li><a href="memories.html" class="nav-link">📸 Memories</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <h1>🍜 My Foods</h1>
+    <p>Add your own favorites and let us decide for you.</p>
+    <button class="btn-add-food" id="openAddFood">+ Add Food</button>
+  </header>
+
+  <!-- SEARCH & FILTER BAR -->
+  <section class="foods-controls">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search food..." aria-label="Search food" />
+    </div>
+    <div class="filter-bar">
+      <select id="filterCategory" aria-label="Filter by category">
+        <option value="">All Categories</option>
+        <option value="Rice">Rice</option>
+        <option value="Noodles">Noodles</option>
+        <option value="Fast Food">Fast Food</option>
+        <option value="Western">Western</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Snack">Snack</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="filterSpice" aria-label="Filter by spice level">
+        <option value="">Any Spice</option>
+        <option value="not-spicy">Not Spicy</option>
+        <option value="mild">Mild</option>
+        <option value="medium">Medium</option>
+        <option value="very-spicy">Very Spicy</option>
+      </select>
+      <select id="filterSize" aria-label="Filter by meal size">
+        <option value="">Any Size</option>
+        <option value="light">Light</option>
+        <option value="normal">Normal</option>
+        <option value="heavy">Heavy</option>
+      </select>
+      <select id="filterBudget" aria-label="Filter by budget">
+        <option value="">Any Budget</option>
+        <option value="under10">Under RM10</option>
+        <option value="10to20">RM10–20</option>
+        <option value="20to40">RM20–40</option>
+        <option value="40plus">RM40+</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- FOOD GRID -->
+  <main class="foods-grid-wrapper">
+    <div class="foods-grid" id="foodsGrid"></div>
+    <div class="empty-state" id="emptyFoods" hidden>
+      <div class="empty-emoji">🍽️</div>
+      <h2>No foods found</h2>
+      <p>Try adjusting your search or filters.</p>
+      <button class="btn-add-food" id="openAddFood2">+ Add Your First Food</button>
+    </div>
+  </main>
+
+  <!-- ADD/EDIT FOOD MODAL -->
+  <div class="modal-overlay" id="foodModal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Food</h2>
+        <button class="modal-close" id="closeModal" aria-label="Close modal">✕</button>
+      </div>
+      <form id="foodForm" novalidate>
+        <input type="hidden" id="editFoodId" />
+
+        <div class="form-group">
+          <label for="foodName">Food Name <span class="required">*</span></label>
+          <input type="text" id="foodName" placeholder="e.g. Nasi Lemak" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="foodPrice">Price (RM) <span class="required">*</span></label>
+            <input type="number" id="foodPrice" placeholder="e.g. 10" min="0" step="0.5" required />
+          </div>
+          <div class="form-group">
+            <label for="foodCategory">Category <span class="required">*</span></label>
+            <select id="foodCategory" required>
+              <option value="">Select category</option>
+              <option value="Rice">Rice</option>
+              <option value="Noodles">Noodles</option>
+              <option value="Fast Food">Fast Food</option>
+              <option value="Western">Western</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Snack">Snack</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Taste Intensities <span class="pref-hint">(0 = none, 5 = strongest)</span></label>
+          <div class="taste-sliders">
+            <div class="taste-slider-row">
+              <span>🍬 Sweet</span>
+              <input type="range" id="tasteSweet" min="0" max="5" value="0" />
+              <span class="slider-val" id="sweetVal">0</span>
+            </div>
+            <div class="taste-slider-row">
+              <span>🧂 Salty</span>
+              <input type="range" id="tasteSalty" min="0" max="5" value="0" />
+              <span class="slider-val" id="saltyVal">0</span>
+            </div>
+            <div class="taste-slider-row">
+              <span>🍋 Sour</span>
+              <input type="range" id="tasteSour" min="0" max="5" value="0" />
+              <span class="slider-val" id="sourVal">0</span>
+            </div>
+            <div class="taste-slider-row">
+              <span>🌿 Bitter</span>
+              <input type="range" id="tasteBitter" min="0" max="5" value="0" />
+              <span class="slider-val" id="bitterVal">0</span>
+            </div>
+            <div class="taste-slider-row">
+              <span>🌶️ Spicy</span>
+              <input type="range" id="tasteSpicyT" min="0" max="5" value="0" />
+              <span class="slider-val" id="spicyTVal">0</span>
+            </div>
+            <div class="taste-slider-row">
+              <span>😋 Savory</span>
+              <input type="range" id="tasteSavory" min="0" max="5" value="0" />
+              <span class="slider-val" id="savoryVal">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="foodSpicyLevel">Spicy Level <span class="required">*</span></label>
+            <select id="foodSpicyLevel" required>
+              <option value="not-spicy">🙂 Not Spicy</option>
+              <option value="mild">🌶️ Mild</option>
+              <option value="medium">🌶️🌶️ Medium</option>
+              <option value="very-spicy">🌶️🌶️🌶️ Very Spicy</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="foodMealSize">Meal Size <span class="required">*</span></label>
+            <select id="foodMealSize" required>
+              <option value="light">🥗 Light</option>
+              <option value="normal">🍽️ Normal</option>
+              <option value="heavy">🍖 Heavy</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="foodDistance">Distance (km) <span class="required">*</span></label>
+            <input type="number" id="foodDistance" placeholder="e.g. 1.5" min="0" step="0.1" required />
+          </div>
+          <div class="form-group">
+            <label for="foodLocation">Location Name</label>
+            <input type="text" id="foodLocation" placeholder="e.g. Nearby Food Court" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="foodEmoji">Food Emoji</label>
+          <input type="text" id="foodEmoji" placeholder="e.g. 🍜 (optional)" maxlength="4" />
+        </div>
+
+        <div class="form-group">
+          <label for="foodImageUrl">Image URL <span class="pref-hint">(optional)</span></label>
+          <input type="url" id="foodImageUrl" placeholder="https://example.com/image.jpg" />
+        </div>
+
+        <div class="form-group">
+          <label for="foodDescription">Description</label>
+          <textarea id="foodDescription" rows="3" placeholder="Describe this food..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" id="cancelModal">Cancel</button>
+          <button type="submit" class="btn-save">Save Food</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" id="deleteModal" hidden role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+    <div class="modal-box modal-confirm">
+      <div class="modal-header">
+        <h2 id="deleteTitle">Delete Food?</h2>
+      </div>
+      <p>Are you sure you want to remove this food?</p>
+      <div class="form-actions">
+        <button class="btn-cancel" id="cancelDelete">Cancel</button>
+        <button class="btn-delete-confirm" id="confirmDelete">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="foods.js"></script>
+  <script src="script.js"></script>
+  <script src="foods-page.js"></script>
+</body>
+</html>
