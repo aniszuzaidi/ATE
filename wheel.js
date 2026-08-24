@@ -1,5 +1,5 @@
 /**
- * wheel.js - Centered Preference Wheel UI logic for ATE
+ * wheel.js - Centered HTML-overlay Preference Wheel UI logic for ATE
  */
 
 (function() {
@@ -54,24 +54,39 @@
   }
 
   function showPanel(section) {
+    // Hide all options panels
     Object.values(SECTIONS).forEach(function(s) {
       var p = document.getElementById(s.panel);
       if (p) p.hidden = true;
     });
 
-    document.querySelectorAll('.wheel-slice-g').forEach(function(g) {
-      g.classList.remove('active-slice');
+    // Remove active state from all HTML slices and SVG paths
+    document.querySelectorAll('.wheel-html-slice').forEach(function(el) {
+      el.classList.remove('active-slice');
+    });
+    document.querySelectorAll('.wheel-slice').forEach(function(path) {
+      path.classList.remove('active-slice');
     });
 
     activeSection = section;
+
+    // Show the panel
     var panel = document.getElementById(SECTIONS[section].panel);
     if (panel) panel.hidden = false;
 
-    var sliceG = document.querySelector('[data-section="' + section + '"]');
-    if (sliceG) sliceG.classList.add('active-slice');
+    // Add active state to matching elements
+    var sliceEl = document.querySelector('.wheel-html-slice[data-section="' + section + '"]');
+    if (sliceEl) sliceEl.classList.add('active-slice');
 
+    var pathEl = document.getElementById('slice-' + section);
+    if (pathEl) pathEl.classList.add('active-slice');
+
+    // Update hub text
     var hubSub = document.getElementById('hubSub');
-    if (hubSub) hubSub.textContent = SECTIONS[section].hub;
+    if (hubSub) {
+      var emojis = { craving: '🍴', spice: '🌶️', hunger: '🍽️', budget: '💰' };
+      hubSub.textContent = (emojis[section] || '🍽️') + ' ' + SECTIONS[section].hub;
+    }
   }
 
   function mirrorWheelToSlot() {
@@ -82,22 +97,34 @@
   }
 
   function initWheel() {
-    document.querySelectorAll('.wheel-slice-g').forEach(function(g) {
-      var section = g.getAttribute('data-section');
-      g.addEventListener('click', function() { showPanel(section); });
-      g.addEventListener('keydown', function(e) {
+    document.querySelectorAll('.wheel-html-slice').forEach(function(el) {
+      var section = el.getAttribute('data-section');
+
+      // Sync hover of HTML overlay to SVG background path
+      el.addEventListener('mouseenter', function() {
+        var path = document.getElementById('slice-' + section);
+        if (path) path.classList.add('hover-slice');
+      });
+      el.addEventListener('mouseleave', function() {
+        var path = document.getElementById('slice-' + section);
+        if (path) path.classList.remove('hover-slice');
+      });
+
+      // Actions
+      el.addEventListener('click', function() { showPanel(section); });
+      el.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showPanel(section); }
       });
     });
 
-    // Taste buttons listeners
+    // Taste button updates
     document.querySelectorAll('.taste-btn').forEach(function(b) {
       b.addEventListener('click', function() { setTimeout(function() { updateBadge('craving'); }, 10); });
     });
     var anyTaste = document.getElementById('anyTaste');
     if (anyTaste) anyTaste.addEventListener('click', function() { setTimeout(function() { updateBadge('craving'); }, 10); });
 
-    // Option groups listeners
+    // Option group updates
     ['spiceGroup', 'hungerGroup', 'budgetGroup'].forEach(function(id) {
       var section = id.replace('Group', '');
       var g = document.getElementById(id);
@@ -113,7 +140,7 @@
 
     updateAllBadges();
     
-    // Set Craving panel visible by default on load
+    // Default show craving panel on load
     showPanel('craving');
   }
 
